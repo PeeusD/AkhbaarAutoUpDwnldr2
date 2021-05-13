@@ -7,8 +7,8 @@ from os import getenv
 from dotenv import load_dotenv
 
 load_dotenv()
-TOKEN = getenv('TOKEN1')   #-------->CHANGE to TOKEN1 FOR  DEBUG
-chat_id = getenv('CHAT_ID1')   #---------->CHANGE  TO CHATID1 FOR  DEBUG
+TOKEN = getenv('TOKEN')   #-------->CHANGE to TOKEN1 FOR  DEBUG
+chat_id = getenv('CHAT_ID')   #---------->CHANGE  TO CHATID1 FOR  DEBUG
 bot = Bot(token=TOKEN)
 print("----> RUNNING UR PYTHON SCRAPPER SCHEDULLER...")
 def reset_url_status():
