@@ -2,7 +2,6 @@
 from bs4 import BeautifulSoup
 import requests, time, random, datetime, schedule
 from telegram import Bot, ParseMode
-# from telegram.ext import Updater
 from os import getenv
 from dotenv import load_dotenv
 
@@ -11,10 +10,12 @@ TOKEN = getenv('TOKEN')   #-------->CHANGE to TOKEN1 FOR  DEBUG
 chat_id = getenv('CHAT_ID')   #---------->CHANGE  TO CHATID1 FOR  DEBUG
 bot = Bot(token=TOKEN)
 print("----> RUNNING UR PYTHON SCRAPPER SCHEDULLER...")
+
 def reset_url_status():
     for i in range(len(url)):
         url[i][1] = False
     print("-->RAN RESET FUNC....<----")
+
 def schedulling_fun():
         
     url = [ ["https://newspaperpdf.online/the-hindu-pdf-download.php", False],
@@ -62,7 +63,7 @@ def schedulling_fun():
                     print('Uploaded Status...OK')
                     flag = True
                 else :
-                    print(f"Not uploaded yet..Last paper was {txt}")    
+                    print(f"Not uploaded yet..Last paper was {all_links[0].text}")    
                     
         else:
             print("website down")
