@@ -11,14 +11,7 @@ chat_id = getenv('CHAT_ID')   #---------->CHANGE  TO CHATID1 FOR  DEBUG
 bot = Bot(token=TOKEN)
 print("----> RUNNING UR PYTHON SCRAPPER SCHEDULLER...")
 
-def reset_url_status():
-    for i in range(len(url)):
-        url[i][1] = False
-    print("-->RAN RESET FUNC....<----")
-
-def schedulling_fun():
-        
-    url = [ ["https://newspaperpdf.online/the-hindu-pdf-download.php", False],
+url = [ ["https://newspaperpdf.online/the-hindu-pdf-download.php", False],
             ["https://newspaperpdf.online/download-financial-express.php", False],
             ["https://newspaperpdf.online/download-indian-express.php", False],
             ["https://newspaperpdf.online/download-dainik-jagran.php", False],
@@ -28,6 +21,14 @@ def schedulling_fun():
             ["https://newspaperpdf.online/download-hindustan-times.php", False],
             ["https://newspaperpdf.online/download-times-of-india.php", False]
           ]  
+def reset_url_status():
+    for i in range(len(url)):
+        url[i][1] = False
+    print("-->RAN RESET FUNC....<----")
+
+def schedulling_fun():
+        
+    
     
     
     headers = [{ 'User-Agent' : 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36' },
@@ -48,22 +49,32 @@ def schedulling_fun():
                 soup = BeautifulSoup(res.text,'html.parser')
                 all_links = soup.select("#containerid a")
                 # print(type(all_links))
-                flag = url[i][1]
+                
                 today_dt = datetime.datetime.now()
                 today_dt = today_dt.strftime("%d")  #extracting date int from date module
-                lst = str(all_links[0]).replace("2021","")
+                
+                   
+
+                txt = all_links[0].text
+                if "2021" in txt:
+                    txt = txt.replace("2021","")
+                # print(txt)
                 
                 if today_dt[0]=="0":  #removing zero from date
                     today_dt = today_dt.replace("0","") 
-                if flag == False  and today_dt in lst: 
-                    txt = all_links[0].text    #paper name with date 
+                if url[i][1] == False  and today_dt in txt:    #checking ppr uploaded or not
+                    
+                        #paper name with date 
                     dwld_link = all_links[0].get('href') # href ---> attribute  [ gdrive download link]
                     msg ='<b>' + txt + '\t '+ dwld_link +'</b>'
                     bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
-                    flag = True
+                    
+                    url[i][1] = True   # updating flag
+                    
+                    # break
                 else :
-                    print(f"Not uploaded yet..Last paper was {all_links[0].text}")    
+                    print(f"Last Epaper uploaded was {all_links[0].text} Or already uploaded")    
                     
         else:
             print("website down")
@@ -74,10 +85,11 @@ schedule.every().day.at("01:25").do(reset_url_status)    #  reset_url_status
 
 schedule.every().day.at("01:40").do(schedulling_fun)   # FOR HEROKU/ PYTHON ANYWHERE DEPLOYMENT SET TO IST 07:10  set 01:40
 schedule.every().day.at("02:00").do(schedulling_fun)   #IST 07:30
-schedule.every().day.at("02:30").do(schedulling_fun)    #IST 07:45
-schedule.every().day.at("03:05").do(schedulling_fun)     #IST 08:05 #####  <--------------  CHANGE HERE FOR DEBUGGING  ------>
-schedule.every().day.at("03:35").do(schedulling_fun)  #ist 08:20    actual 9:05AM
-schedule.every().day.at("04:35").do(schedulling_fun)   #10:05am
+schedule.every().day.at("02:30").do(schedulling_fun)    #IST 08 am
+schedule.every().day.at("03:05").do(schedulling_fun)     #IST 08:30 #####  <--------------  CHANGE HERE FOR DEBUGGING  ------>
+schedule.every().day.at("03:35").do(schedulling_fun)  #ist   9:05AM
+schedule.every().day.at("04:00").do(schedulling_fun)  #ist   9:30AM
+
 while True:
   
     schedule.run_pending()
