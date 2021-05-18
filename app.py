@@ -67,6 +67,9 @@ def schedulling_fun():
                         #paper name with date 
                     dwld_link = all_links[0].get('href') # href ---> attribute  [ gdrive download link]
                     msg ='<b>' + txt + '\t '+ dwld_link +'</b>'
+                    if url[0][0]:    #greeting with sticker
+                        bot.send_sticker(chat_id=chat_id, sticker= "CAACAgUAAxkBAAMlYIUpOSktZSWxgoH0bdsRS_86WCgAAggAA1xd_zlw6TJ98knIFB8E")
+      
                     bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
                     
