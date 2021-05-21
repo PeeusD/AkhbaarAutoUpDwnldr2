@@ -42,6 +42,7 @@ def schedulling_fun():
         
     for i in range(len(url)):
         rand_heads = random.randint(0,5) 
+        time.sleep(random.randint(1,5)) #random delay for request
         res = requests.get(url[i][0], headers = headers[rand_heads])
         print(url[i][0])
         if res.status_code == 200 :
