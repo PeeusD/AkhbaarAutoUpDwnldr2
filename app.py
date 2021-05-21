@@ -68,7 +68,11 @@ def schedulling_fun():
                     dwld_link = all_links[0].get('href') # href ---> attribute  [ gdrive download link]
                     msg ='<b>' + txt + '\t '+ dwld_link +'</b>'
                     
-      
+                     #sending greeting sticker
+                    if "the-hindu" in url[i][0] :
+                        bot.send_sticker(chat_id=chat_id, sticker= "CAACAgUAAxkBAAMlYIUpOSktZSWxgoH0bdsRS_86WCgAAggAA1xd_zlw6TJ98knIFB8E")
+                        
+                    #sending message
                     bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
                     
