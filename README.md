@@ -2,5 +2,4 @@
  
  ## Example of scrapping content and uploading  to telegram channel:-
  
- 
-![Untitled](https://user-images.githubusercontent.com/72473589/119238512-4e4f3380-bb60-11eb-928a-4392d82969d7.png)
+![pimage](https://user-images.githubusercontent.com/72473589/119238553-a38b4500-bb60-11eb-8a56-7e614a6dbbbd.png)
