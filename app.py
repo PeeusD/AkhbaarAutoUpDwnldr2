@@ -42,7 +42,7 @@ def schedulling_fun():
         
     for i in range(len(url)):
         rand_heads = random.randint(0,5) 
-        time.sleep(random.randint(1,5)) #random delay for request
+        time.sleep(random.randint(3,7)) #random delay for request
         if url[i][1] == False:
           res = requests.get(url[i][0], headers = headers[rand_heads])
           print(url[i][0])
@@ -82,11 +82,11 @@ def schedulling_fun():
                     
                     # break
                 else :
-                    print(f"Last Epaper uploaded was {all_links[0].text}")    
+                    print(f"Not uploaded yet. Last Epaper was {all_links[0].text}")    
           else:
             print("Website down")
         else:
-            print("Already Uploaded! --> {url[i][1]}")
+            print(f"Already Uploaded! --> {url[i][0]}")
         # break  #for debugging------>  <ENABLE IT..>
         time.sleep(random.randint(5,10))      
    
