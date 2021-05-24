@@ -82,10 +82,11 @@ def schedulling_fun():
                     
                     # break
                 else :
-                    print(f"Last Epaper uploaded was {all_links[0].text} Or already uploaded")    
-                    
+                    print(f"Last Epaper uploaded was {all_links[0].text}")    
+          else:
+            print("Website down")
         else:
-            print("website down")
+            print("Already Uploaded! --> {url[i][1]}")
         # break  #for debugging------>  <ENABLE IT..>
         time.sleep(random.randint(5,10))      
    
