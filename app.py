@@ -43,9 +43,10 @@ def schedulling_fun():
     for i in range(len(url)):
         rand_heads = random.randint(0,5) 
         time.sleep(random.randint(1,5)) #random delay for request
-        res = requests.get(url[i][0], headers = headers[rand_heads])
-        print(url[i][0])
-        if res.status_code == 200 :
+        if url[i][1] == False:
+          res = requests.get(url[i][0], headers = headers[rand_heads])
+          print(url[i][0])
+          if res.status_code == 200 :
                 print(res)
                 soup = BeautifulSoup(res.text,'html.parser')
                 all_links = soup.select("#containerid a")
@@ -63,7 +64,7 @@ def schedulling_fun():
                 
                 if today_dt[0]=="0":  #removing zero from date
                     today_dt = today_dt.replace("0","") 
-                if url[i][1] == False  and today_dt in txt:    #checking ppr uploaded or not
+                if today_dt in txt:    #checking ppr uploaded or not
                     
                         #paper name with date 
                     dwld_link = all_links[0].get('href') # href ---> attribute  [ gdrive download link]
@@ -90,12 +91,13 @@ def schedulling_fun():
    
 schedule.every().day.at("01:25").do(reset_url_status)    #  reset_url_status
 
-schedule.every().day.at("01:40").do(schedulling_fun)   # FOR HEROKU/ PYTHON ANYWHERE DEPLOYMENT SET TO IST 07:10  set 01:40
-schedule.every().day.at("02:00").do(schedulling_fun)   #IST 07:30
-schedule.every().day.at("02:30").do(schedulling_fun)    #IST 08 am
-schedule.every().day.at("03:05").do(schedulling_fun)     #IST 08:30 #####  <--------------  CHANGE HERE FOR DEBUGGING  ------>
-schedule.every().day.at("03:35").do(schedulling_fun)  #ist   9:05AM
-schedule.every().day.at("04:00").do(schedulling_fun)  #ist   9:30AM
+schedule.every(15).minutes.do(schedulling_fun)
+#schedule.every().day.at("01:40").do(schedulling_fun)   # FOR HEROKU/ PYTHON ANYWHERE DEPLOYMENT SET TO IST 07:10  set 01:40
+#schedule.every().day.at("02:00").do(schedulling_fun)   #IST 07:30
+#schedule.every().day.at("02:30").do(schedulling_fun)    #IST 08 am
+#schedule.every().day.at("03:05").do(schedulling_fun)     #IST 08:30 #####  <--------------  CHANGE HERE FOR DEBUGGING  ------>
+#schedule.every().day.at("03:35").do(schedulling_fun)  #ist   9:05AM
+#schedule.every().day.at("04:00").do(schedulling_fun)  #ist   9:30AM
 
 while True:
   
