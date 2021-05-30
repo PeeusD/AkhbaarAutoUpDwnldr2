@@ -73,11 +73,27 @@ def schedulling_fun():
                      #sending greeting sticker
                     #if "the-hindu" in url[i][0] :
                         #bot.send_sticker(chat_id=chat_id, sticker= "CAACAgUAAxkBAAMlYIUpOSktZSWxgoH0bdsRS_86WCgAAggAA1xd_zlw6TJ98knIFB8E")
-                        
-                    #sending message
-                    bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
+                    file_url = "dwld_link"
+  
+                    r = requests.get(file_url, stream = True)
+                    arr = os.listdir('files')
+                    with open(arr[0],"wb") as pdf:
+                            for chunk in r.iter_content(chunk_size=1024):
+
+                                 # writing one chunk at a time to pdf file
+                                 if chunk:
+                                     pdf.write(chunk)    
+                    #sending message or sending file
+                    bot.send_document(chat_id = chat_id, document = arr[0], timeout = 60)
+                    #bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
-                    
+            
+                                 #deleting file
+                    try:
+     
+                        os.remove(f'files/{arr[0]}')
+                    except Exception as e:
+                        print(e)
                     url[i][1] = True   # updating flag
                     
                     # break
