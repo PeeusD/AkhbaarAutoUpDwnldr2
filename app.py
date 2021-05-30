@@ -84,7 +84,7 @@ def schedulling_fun():
                                  if chunk:
                                      pdf.write(chunk)    
                     #sending message or sending file
-                    bot.send_document(chat_id = chat_id, document = arr[0], timeout = 60)
+                    bot.send_document(chat_id = chat_id, document = f'files/{arr[0]}', timeout = 60)
                     #bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
             
