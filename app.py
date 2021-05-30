@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 import requests, time, random, datetime, schedule
 from telegram import Bot, ParseMode
-from os import getenv
+from os import getenv, listdir, remove
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -73,10 +73,10 @@ def schedulling_fun():
                      #sending greeting sticker
                     #if "the-hindu" in url[i][0] :
                         #bot.send_sticker(chat_id=chat_id, sticker= "CAACAgUAAxkBAAMlYIUpOSktZSWxgoH0bdsRS_86WCgAAggAA1xd_zlw6TJ98knIFB8E")
-                    file_url = "dwld_link"
+                    
   
-                    r = requests.get(file_url, stream = True)
-                    arr = os.listdir('files')
+                    r = requests.get(dwld_link, stream = True)
+                    arr = listdir('files')
                     with open(arr[0],"wb") as pdf:
                             for chunk in r.iter_content(chunk_size=1024):
 
@@ -91,7 +91,7 @@ def schedulling_fun():
                                  #deleting file
                     try:
      
-                        os.remove(f'files/{arr[0]}')
+                        remove(f'files/{arr[0]}')
                     except Exception as e:
                         print(e)
                     url[i][1] = True   # updating flag
@@ -108,7 +108,7 @@ def schedulling_fun():
    
 schedule.every().day.at("01:25").do(reset_url_status)    #  reset_url_status
 
-schedule.every(15).minutes.do(schedulling_fun)
+schedule.every(5).minutes.do(schedulling_fun)
 #schedule.every().day.at("01:40").do(schedulling_fun)   # FOR HEROKU/ PYTHON ANYWHERE DEPLOYMENT SET TO IST 07:10  set 01:40
 #schedule.every().day.at("02:00").do(schedulling_fun)   #IST 07:30
 #schedule.every().day.at("02:30").do(schedulling_fun)    #IST 08 am
