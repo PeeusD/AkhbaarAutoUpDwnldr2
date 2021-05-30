@@ -1,8 +1,7 @@
-
 from bs4 import BeautifulSoup
 import requests, time, random, datetime, schedule
 from telegram import Bot, ParseMode
-from os import getenv, listdir, remove
+from os import getenv
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -27,10 +26,7 @@ def reset_url_status():
     print("-->RAN RESET FUNC....<----")
 
 def schedulling_fun():
-        
-    
-    
-    
+
     headers = [{ 'User-Agent' : 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36' },
                              { 'User-Agent' :'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0'},
                              { 'User-Agent' :'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'},
@@ -54,9 +50,7 @@ def schedulling_fun():
                 
                 today_dt = datetime.datetime.now()
                 today_dt = today_dt.strftime("%d")  #extracting date int from date module
-                
-                   
-
+ 
                 txt = all_links[0].text
                 if "2021" in txt:
                     txt = txt.replace("2021","")
@@ -73,29 +67,12 @@ def schedulling_fun():
                      #sending greeting sticker
                     #if "the-hindu" in url[i][0] :
                         #bot.send_sticker(chat_id=chat_id, sticker= "CAACAgUAAxkBAAMlYIUpOSktZSWxgoH0bdsRS_86WCgAAggAA1xd_zlw6TJ98knIFB8E")
-                    
-  
-                    r = requests.get(dwld_link, stream = True)
-                    arr = listdir('files')
-                    with open(arr[1],"wb") as pdf:
-                            for chunk in r.iter_content(chunk_size=1024):
 
-                                 # writing one chunk at a time to pdf file
-                                 if chunk:
-                                     pdf.write(chunk) 
-                    dw_file = f'files/{arr[1]}'        
-                    
                     #sending message or sending file
-                    bot.send_document(chat_id = chat_id, document = open(dw_file, 'rb'), timeout = 60)
-                    #bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
+                   
+                    bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
-            
-                                 #deleting file
-                    try:
      
-                        remove(f'files/{arr[1]}')
-                    except Exception as e:
-                        print(e)
                     url[i][1] = True   # updating flag
                     
                     # break
@@ -110,7 +87,7 @@ def schedulling_fun():
    
 schedule.every().day.at("01:25").do(reset_url_status)    #  reset_url_status
 
-schedule.every(5).minutes.do(schedulling_fun)
+schedule.every(15).minutes.do(schedulling_fun)
 #schedule.every().day.at("01:40").do(schedulling_fun)   # FOR HEROKU/ PYTHON ANYWHERE DEPLOYMENT SET TO IST 07:10  set 01:40
 #schedule.every().day.at("02:00").do(schedulling_fun)   #IST 07:30
 #schedule.every().day.at("02:30").do(schedulling_fun)    #IST 08 am
