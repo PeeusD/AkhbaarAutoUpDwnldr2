@@ -77,21 +77,23 @@ def schedulling_fun():
   
                     r = requests.get(dwld_link, stream = True)
                     arr = listdir('files')
-                    with open(arr[0],"wb") as pdf:
+                    with open(arr[1],"wb") as pdf:
                             for chunk in r.iter_content(chunk_size=1024):
 
                                  # writing one chunk at a time to pdf file
                                  if chunk:
-                                     pdf.write(chunk)    
+                                     pdf.write(chunk) 
+                    dw_file = f'files/{arr[1]}'        
+                    
                     #sending message or sending file
-                    bot.send_document(chat_id = chat_id, document = f'files/{arr[0]}', timeout = 60)
+                    bot.send_document(chat_id = chat_id, document = open(dw_file, 'rb'), timeout = 60)
                     #bot.send_message(chat_id = chat_id, text = msg  , parse_mode = ParseMode.HTML )
                     print('Uploaded Status...OK')
             
                                  #deleting file
                     try:
      
-                        remove(f'files/{arr[0]}')
+                        remove(f'files/{arr[1]}')
                     except Exception as e:
                         print(e)
                     url[i][1] = True   # updating flag
