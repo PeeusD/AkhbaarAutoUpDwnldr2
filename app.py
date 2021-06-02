@@ -14,11 +14,11 @@ url = [ ["https://newspaperpdf.online/the-hindu-pdf-download.php", False],
             ["https://newspaperpdf.online/download-financial-express.php", False],
             ["https://newspaperpdf.online/download-indian-express.php", False],
             ["https://newspaperpdf.online/download-dainik-jagran.php", False],
-            ["https://newspaperpdf.online/download-economic-times.php", False],
+          # ["https://newspaperpdf.online/download-economic-times.php", False],
             ["https://newspaperpdf.online/download-deccan-chronicle.php", False],
-            ["https://newspaperpdf.online/download-jansatta.php", False],
-            ["https://newspaperpdf.online/download-hindustan-times.php", False],
-            ["https://newspaperpdf.online/download-times-of-india.php", False]
+            ["https://newspaperpdf.online/download-jansatta.php", False],    
+           # ["https://newspaperpdf.online/download-times-of-india.php", False],
+            ["https://newspaperpdf.online/download-hindustan-times.php", False]
           ]  
 def reset_url_status():
     for i in range(len(url)):
